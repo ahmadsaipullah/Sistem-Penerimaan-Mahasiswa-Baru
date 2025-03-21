@@ -48,7 +48,7 @@ class userPendaftaranController extends Controller
 
         Pendaftaran::create($data);
 
-        toast('Data berhasil ditambah', 'success');
+        toast('Pendaftaran Berhasil', 'success');
         return redirect()->route('userpendaftaran.index');
     }
 

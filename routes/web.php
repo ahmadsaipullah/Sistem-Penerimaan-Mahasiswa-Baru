@@ -45,7 +45,9 @@
 
             Route::resource('/admin', adminController::class);
 
-            Route::resource('/pendaftaran', pendaftaranController::class);
+            Route::get('/pendaftaran', [pendaftaranController::class, 'index'])->name('pendaftaran.index');
+            Route::patch ('/pendaftaran/{id}', [pendaftaranController::class, 'update'])->name('pendaftaran.update');
+            Route::delete('/pendaftaran/{id}', [pendaftaranController::class, 'destroy'])->name('pendaftaran.destroy');
             Route::get('/pendaftaran/export/{id?}', [cetakController::class, 'exportPDF'])->name('pendaftaran.export');
         });
 
@@ -61,7 +63,8 @@
             route::get('/pendaftaran-mahasiswa', [userPendaftaranController::class, 'index'])->name('userpendaftaran.index');
             route::post('/pendaftaran-mahasiswa', [userPendaftaranController::class, 'store'])->name('userpendaftaran.store');
             Route::get('/detail-pendaftaran/{id}', [userPendaftaranController::class, 'show'])->name('userpendaftaran.show');
-            Route::put('/edit-pendaftaran/{id}', [userPendaftaranController::class, 'update'])->name('userpendaftaran.update');
+            Route::patch('/edit-pendaftaran/{id}', [userPendaftaranController::class, 'update'])->name('userpendaftaran.update');
+            Route::get('/pendaftaran/export/{id?}', [cetakController::class, 'exportPDF'])->name('pendaftaran.export');
         });
 
 

@@ -8,7 +8,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('pendaftaran.store') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('userpendaftaran.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <div class="row">

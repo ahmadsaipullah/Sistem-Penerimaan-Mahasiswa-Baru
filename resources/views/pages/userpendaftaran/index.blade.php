@@ -41,6 +41,11 @@
                                             <td>{{$pendaftaran->program_studi_tujuan}}</td>
                                             <td>
                                                 <div class="text-center d-flex">
+
+                                                    <a href="{{ route('pendaftaran.export', $pendaftaran->id) }}" class="btn btn-sm btn-danger">
+                                                        <i class="fa fa-file-pdf"></i>
+                                                    </a>
+
                                                     <a href="#" class="btn btn-info btn-sm mx-2" data-toggle="modal" data-target="#modal-detail{{$pendaftaran->id}}">
                                                         <i class="fa fa-eye"></i>
                                                     </a>

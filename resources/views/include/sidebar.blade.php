@@ -34,8 +34,14 @@
              </li>
              <li class="nav-item @yield('pendaftaran')">
                 <a class="nav-link" href="{{ route('pendaftaran.index') }}">
-                    <i class="fas fa-fw fa-user"></i>
-                    <span>Pendaftaran</span></a>
+                    <i class="fas fa-fw fa-file-alt"></i>
+                    <span>Data Pendaftar</span></a>
+            </li>
+            <li class="nav-item @yield('berkas')">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-fw fa-upload"></i>
+                    <span>Data Upload Berkas</span>
+                </a>
             </li>
          @endif
 
@@ -44,11 +50,32 @@
 
          @if (auth()->user()->level_id == 3)
          <li class="nav-item @yield('pendaftaran')">
-            <a class="nav-link" href="{{ route('userpendaftaran.index') }}">
-                <i class="fas fa-fw fa-user"></i>
-                <span>Formulir Pendaftaran</span></a>
-        </li>
+             <a class="nav-link" href="{{ route('userpendaftaran.index') }}">
+                <i class="fas fa-fw fa-file-alt"></i>
+                 <span>Formulir Pendaftaran</span>
+             </a>
+         </li>
+
+              <li class="nav-item @yield('berkas')">
+                 <a class="nav-link" href="#">
+                     <i class="fas fa-fw fa-upload"></i>
+                     <span>Upload Berkas</span>
+                 </a>
+             </li>
+
+         @php
+             $pendaftaran = \App\Models\Pendaftaran::where('user_id', auth()->id())->exists();
+         @endphp
+
+         @if ($pendaftaran)
+             <li class="nav-item @yield('berkas')">
+                 <a class="nav-link" href="#">
+                     <i class="fas fa-fw fa-upload"></i>
+                     <span>Upload Berkas</span>
+                 </a>
+             </li>
          @endif
+     @endif
          <!-- Divider -->
          <hr class="sidebar-divider d-none d-md-block">
 
