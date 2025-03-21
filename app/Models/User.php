@@ -59,4 +59,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Level::class, 'level_id', 'id');
     }
+
+    public function Pendaftaran()
+    {
+        return $this->hasMany(Pendaftaran::class);
+
+    }
 }

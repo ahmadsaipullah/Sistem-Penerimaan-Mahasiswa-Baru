@@ -32,10 +32,22 @@
                      <i class="fas fa-fw fa-user"></i>
                      <span>Admin</span></a>
              </li>
+             <li class="nav-item @yield('pendaftaran')">
+                <a class="nav-link" href="{{ route('pendaftaran.index') }}">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Pendaftaran</span></a>
+            </li>
          @endif
+
          @if (auth()->user()->level_id == 2)
          @endif
+
          @if (auth()->user()->level_id == 3)
+         <li class="nav-item @yield('pendaftaran')">
+            <a class="nav-link" href="{{ route('userpendaftaran.index') }}">
+                <i class="fas fa-fw fa-user"></i>
+                <span>Formulir Pendaftaran</span></a>
+        </li>
          @endif
          <!-- Divider -->
          <hr class="sidebar-divider d-none d-md-block">

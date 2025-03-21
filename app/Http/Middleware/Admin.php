@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class assesorMiddleware
+class Admin
 {
     /**
      * Handle an incoming request.
@@ -16,14 +16,10 @@ class assesorMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && Auth::user()->level_id == 2) {
+        if (Auth::check() && Auth::user()->level_id == 1) {
             return $next($request);
-        } elseif (Auth::check() && Auth::user()->level_id == 3) {
-            return $next($request);
-        } elseif (Auth::check() && Auth::user()->level_id == 1) {
-            return $next($request);
-        }else {
-            return redirect()->route('error');
         }
+
+        return redirect()->route('error')->with('error', 'Akses Ditolak');
     }
 }

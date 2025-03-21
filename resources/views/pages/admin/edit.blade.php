@@ -1,4 +1,5 @@
 <!-- /.modal -->
+@if(isset($admin))
 <div class="modal fade" id="modal-edit{{$admin->id}}">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -63,3 +64,4 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+@endif
