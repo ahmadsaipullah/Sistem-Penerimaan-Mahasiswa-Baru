@@ -1,4 +1,6 @@
 <?php
+
+    use App\Http\Controllers\uploadDokumenController;
     use Illuminate\Support\Facades\Route;
     use App\Http\Controllers\ProfileController;
     use App\Http\Controllers\dashboardController;
@@ -44,11 +46,17 @@
             // Crud Admin
 
             Route::resource('/admin', adminController::class);
-
+            // pendaftaran
             Route::get('/pendaftaran', [pendaftaranController::class, 'index'])->name('pendaftaran.index');
             Route::patch ('/pendaftaran/{id}', [pendaftaranController::class, 'update'])->name('pendaftaran.update');
             Route::delete('/pendaftaran/{id}', [pendaftaranController::class, 'destroy'])->name('pendaftaran.destroy');
             Route::get('/pendaftaran/export/{id?}', [cetakController::class, 'exportPDF'])->name('pendaftaran.export');
+
+             // Halaman upload dokumen
+            Route::get('/upload-dokumen', [uploadDokumenController::class, 'index'])->name('upload_dokumen.index');
+            Route::post('/upload-dokumen', [uploadDokumenController::class, 'store'])->name('upload_dokumen.store');
+            Route::put('/upload-dokumen/{id}', [uploadDokumenController::class, 'update'])->name('upload_dokumen.update');
+            Route::delete('/upload-dokumen/{id}', [uploadDokumenController::class, 'destroy'])->name('upload_dokumen.destroy');
         });
 
 

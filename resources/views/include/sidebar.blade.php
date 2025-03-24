@@ -38,7 +38,7 @@
                     <span>Data Pendaftar</span></a>
             </li>
             <li class="nav-item @yield('berkas')">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{route('upload_dokumen.index')}}">
                     <i class="fas fa-fw fa-upload"></i>
                     <span>Data Upload Berkas</span>
                 </a>
