@@ -61,7 +61,7 @@
                             @else
                                 <p class="text-muted">Tidak ada sertifikat.</p>
                             @endif
-                            <p><strong>Deskripsi Pekerjaan:</strong> {{ $pendaftaran->deskripsi ?? '-' }}</p>
+                            <p><strong>Deskripsi Sertifikat:</strong> {{ $pendaftaran->deskripsi ?? '-' }}</p>
                         </div>
                     </div>
                 </div>

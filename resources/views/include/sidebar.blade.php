@@ -37,10 +37,22 @@
                     <i class="fas fa-fw fa-file-alt"></i>
                     <span>Data Pendaftar</span></a>
             </li>
-            <li class="nav-item @yield('berkas')">
+            <li class="nav-item @yield('upload_dokumen')">
                 <a class="nav-link" href="{{route('upload_dokumen.index')}}">
                     <i class="fas fa-fw fa-upload"></i>
                     <span>Data Upload Berkas</span>
+                </a>
+            </li>
+            <li class="nav-item @yield('pembayaran')">
+                <a class="nav-link" href="{{route('pembayaran.index')}}">
+                    <i class="fas fa-fw fa-upload"></i>
+                    <span>Upload Bukti Pembayaran</span>
+                </a>
+            </li>
+            <li class="nav-item @yield('jadwal')">
+                <a class="nav-link" href="{{route('jadwal.index')}}">
+                    <i class="fas fa-fw fa-upload"></i>
+                    <span>Pengajuan jadwal</span>
                 </a>
             </li>
          @endif
@@ -56,25 +68,48 @@
              </a>
          </li>
 
-              <li class="nav-item @yield('berkas')">
-                 <a class="nav-link" href="#">
-                     <i class="fas fa-fw fa-upload"></i>
-                     <span>Upload Berkas</span>
-                 </a>
-             </li>
-
          @php
              $pendaftaran = \App\Models\Pendaftaran::where('user_id', auth()->id())->exists();
          @endphp
 
          @if ($pendaftaran)
-             <li class="nav-item @yield('berkas')">
-                 <a class="nav-link" href="#">
+             <li class="nav-item @yield('upload_dokumen')">
+                 <a class="nav-link" href="{{route('userdokumen.index')}}">
                      <i class="fas fa-fw fa-upload"></i>
                      <span>Upload Berkas</span>
                  </a>
              </li>
          @endif
+
+         @php
+         $dokumen = \App\Models\UploadDokumen::where('user_id', Auth::id())->first();
+     @endphp
+
+     @if($dokumen && $dokumen->status === 'Approve')
+         <li class="nav-item @yield('pembayaran')">
+             <a class="nav-link" href="{{route('userpembayaran.index')}}">
+                 <i class="fas fa-fw fa-upload"></i>
+                 <span>Upload Bukti Pembayaran</span>
+             </a>
+         </li>
+     @endif
+
+         @php
+         $pembayaran = \App\Models\Pembayaran::where('user_id', Auth::id())->first();
+     @endphp
+
+     @if($pembayaran && $pembayaran->status === 'Approve')
+         <li class="nav-item @yield('jadwal')">
+             <a class="nav-link" href="{{route('userjadwal.index')}}">
+                 <i class="fas fa-fw fa-upload"></i>
+                 <span>Pengajuan jadwal</span>
+             </a>
+         </li>
+     @endif
+
+
+
+
      @endif
          <!-- Divider -->
          <hr class="sidebar-divider d-none d-md-block">

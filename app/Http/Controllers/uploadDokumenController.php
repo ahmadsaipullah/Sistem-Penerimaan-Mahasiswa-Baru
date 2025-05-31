@@ -61,7 +61,7 @@ class UploadDokumenController extends Controller
         $dokumen->save();
 
         toast('Dokumen berhasil diupload', 'success');
-        return redirect()->route('pages.upload_dokumen.index');
+        return redirect()->route('upload_dokumen.index');
     }
 
     public function update(Request $request, $id)
@@ -74,7 +74,7 @@ class UploadDokumenController extends Controller
         $dokumen->update(['status' => $request->status]);
 
         toast('Status berhasil diperbarui', 'success');
-        return redirect()->route('pages.upload_dokumen.index');
+        return redirect()->route('upload_dokumen.index');
     }
 
     public function destroy($id)
@@ -93,6 +93,35 @@ class UploadDokumenController extends Controller
         $dokumen->delete();
 
         toast('Dokumen berhasil dihapus', 'success');
-        return redirect()->route('pages.upload_dokumen.index');
+        return redirect()->route('upload_dokumen.index');
+    }
+
+    public function approve(Request $request, $id)
+    {
+        // Mendapatkan data pengajuan berdasarkan ID
+        $uploadDokumen = UploadDokumen::findOrFail($id);
+
+        // Update status pengajuan
+        $uploadDokumen->status = $request->status;
+        $uploadDokumen->save();
+ // Tampilkan toast
+        toast('Data berhasil diapprove', 'success');
+        return redirect()->route('upload_dokumen.index');
+    }
+
+
+
+
+    public function rejected(Request $request, $id)
+    {
+        // Mendapatkan data pengajuan berdasarkan ID
+        $uploadDokumen = UploadDokumen::findOrFail($id);
+
+        // Update status pengajuan
+        $uploadDokumen->status = $request->status;
+        $uploadDokumen->save();
+         // Tampilkan toast
+        toast('Data berhasil direjected', 'success');
+        return redirect()->route('upload_dokumen.index');
     }
 }

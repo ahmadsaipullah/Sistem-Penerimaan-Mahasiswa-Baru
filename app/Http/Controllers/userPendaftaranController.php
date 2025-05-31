@@ -12,7 +12,11 @@ class userPendaftaranController extends Controller
 {
     public function index()
     {
-        $pendaftarans = Pendaftaran::with('user')->get();
+        $userId = Auth()->user()->id;
+        $pendaftarans = Pendaftaran::with('user')
+            ->where('user_id', $userId)
+            ->get();
+
         return view('pages.userpendaftaran.index', compact('pendaftarans'));
     }
 

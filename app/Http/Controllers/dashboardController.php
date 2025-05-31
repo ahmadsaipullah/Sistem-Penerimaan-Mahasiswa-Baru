@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\User;
 use App\Models\Registrasi;
 use App\Models\Pendaftaran;
-use App\Models\PengajuanJadwal;
+use Illuminate\Http\Request;
 use App\Models\BuktiPembayaran;
+use App\Models\PengajuanJadwal;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -31,10 +33,49 @@ class DashboardController extends Controller
     //         'totalBuktiPembayaran'
     //     ));
     // }
+public function index()
+{
+    $user = auth()->user();
+    $userId = $user->id;
 
-    public function index()
-    {
-        return view('pages.dashboard');
+    $pendaftaran = null;
+
+    if ($user->level_id == 3) {
+        // Ambil data pendaftaran untuk user level 3
+        $pendaftaran = \App\Models\Pendaftaran::where('user_id', $userId)->first();
+    }
+
+    // Data dashboard untuk Admin (level_id == 1)
+    $totalPendaftar = null;
+    $totalUploadDokumen = null;
+    $totalPembayaran = null;
+    $pendingDokumen = null;
+    $pendingPembayaran = null;
+
+    if ($user->level_id == 1) {
+        $totalPendaftar = \App\Models\Pendaftaran::count();
+        $totalUploadDokumen = \App\Models\UploadDokumen::count();
+        $totalPembayaran = \App\Models\Pembayaran::count();
+
+        $pendingDokumen = \App\Models\UploadDokumen::where('status', 'Pending')->count();
+        $pendingPembayaran = \App\Models\Pembayaran::where('nim', 'waiting approval')->count();
+    }
+
+    return view('pages.dashboard', compact(
+        'pendaftaran',
+        'totalPendaftar',
+        'totalUploadDokumen',
+        'totalPembayaran',
+        'pendingDokumen',
+        'pendingPembayaran'
+    ));
 }
+
+
+
+
+
+
+
 
 }

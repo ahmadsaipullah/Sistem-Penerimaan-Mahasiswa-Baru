@@ -65,4 +65,19 @@ class User extends Authenticatable
         return $this->hasMany(Pendaftaran::class);
 
     }
+    public function UploadDokumen()
+    {
+        return $this->hasMany(UploadDokumen::class);
+
+    }
+    public function Pembayaran()
+    {
+        return $this->hasMany(Pembayaran::class);
+
+    }
+    public function Jadwal()
+    {
+        return $this->hasMany(Jadwal::class);
+
+    }
 }

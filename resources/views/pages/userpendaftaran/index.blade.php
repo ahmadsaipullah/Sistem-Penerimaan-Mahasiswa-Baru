@@ -19,9 +19,9 @@
                         @endif
                         @include('pages.userpendaftaran.create')
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
+                            <div class="table-responsive table-xs">
+                                <table class="table table-striped table-sm"  width="100%" cellspacing="0">
+                                    <thead class="small">
                                         <tr>
                                             <th>No</th>
                                             <th>Nama</th>
