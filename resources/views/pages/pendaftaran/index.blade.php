@@ -8,7 +8,13 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Halaman Pendaftaran</h1>
+                 <div class="d-flex align-items-center mb-3">
+  <i class="fas fa-edit text-info fa-2x me-2 animate__animated animate__fadeInDown"></i>
+  <h1 class="h3 text-gray-800 fw-bold mb-0 animate__animated animate__fadeInRight">
+    Halaman Pendaftaran
+  </h1>
+</div>
+
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -48,20 +54,21 @@
                                                     <a href="#" class="btn btn-info btn-sm mx-2" data-toggle="modal" data-target="#modal-detail{{$pendaftaran->id}}">
                                                         <i class="fa fa-eye"></i>
                                                     </a>
+   @if(auth()->user()->level_id == 1)
+   <a href="#"
+   class="btn btn-warning btn-sm mx-2"data-toggle="modal" data-target="#modal-edit{{$pendaftaran->id}}">
+   <i class="fa fa-pen"></i>
+</a>
 
-                                                    <a href="#"
-                                                        class="btn btn-warning btn-sm mx-2"data-toggle="modal" data-target="#modal-edit{{$pendaftaran->id}}">
-                                                        <i class="fa fa-pen"></i>
-                                                    </a>
-
-                                                    <form action="{{ route('pendaftaran.destroy', $pendaftaran->id) }}" method="post"
-                                                        class="d-inline">
-                                                        @csrf
-                                                        @method('delete')
-                                                        <button class="btn btn-danger btn-sm delete_confirm" type="submit">
-                                                            <i class="fa fa-trash"></i>
-                                                        </button>
-                                                    </form>
+<form action="{{ route('pendaftaran.destroy', $pendaftaran->id) }}" method="post"
+    class="d-inline">
+    @csrf
+    @method('delete')
+    <button class="btn btn-danger btn-sm delete_confirm" type="submit">
+        <i class="fa fa-trash"></i>
+    </button>
+</form>
+@endif
                                                  </div>
                                             </td>
                                         </tr>

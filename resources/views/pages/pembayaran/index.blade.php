@@ -7,7 +7,13 @@
 @include('sweetalert::alert')
 
 <div class="container-fluid">
-    <h1 class="h3 mb-4 text-gray-800">Halaman Upload Pembayaran</h1>
+   <div class="d-flex align-items-center mb-4">
+  <i class="fas fa-upload text-success fa-2x me-2 animate__animated animate__fadeInDown"></i>
+  <h1 class="h3 text-gray-800 fw-bold mb-0 animate__animated animate__fadeInRight">
+    Halaman Upload Pembayaran
+  </h1>
+</div>
+
 
     <div class="card shadow mb-4">
         <div class="card-body">
@@ -24,7 +30,9 @@
                             <th>Keterangan</th>
                             <th>Status</th>
                             <th>Approval</th>
-                            <th>Action</th>
+                               @if(auth()->user()->level_id == 1)
+                               <th>Action</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -86,21 +94,22 @@
                                 <button class="btn btn-success btn-sm px-2 py-1" data-toggle="modal" data-target="#approveModal{{ $pembayaran->id }}" title="Approve">✓</button>
                                 <button class="btn btn-danger btn-sm px-2 py-1" data-toggle="modal" data-target="#rejectModal{{ $pembayaran->id }}" title="Reject">✕</button>
                             </td>
-
-                            <td class="text-center">
-                                <div class="d-flex justify-content-center gap-1">
-                                 <a href="#" class="btn btn-warning btn-sm mx-2" data-toggle="modal" data-target="#modal-edit{{$pembayaran->id}}">
-                                        <i class="fa fa-pen"></i>
-                                    </a>
-                                    <form action="{{ route('pembayaran.destroy', $pembayaran->id) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        @method('delete')
-                                        <button class="btn btn-danger btn-sm delete_confirm" type="submit">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
+   @if(auth()->user()->level_id == 1)
+   <td class="text-center">
+       <div class="d-flex justify-content-center gap-1">
+           <a href="#" class="btn btn-warning btn-sm mx-2" data-toggle="modal" data-target="#modal-edit{{$pembayaran->id}}">
+               <i class="fa fa-pen"></i>
+            </a>
+            <form action="{{ route('pembayaran.destroy', $pembayaran->id) }}" method="POST" class="d-inline">
+                @csrf
+                @method('delete')
+                <button class="btn btn-danger btn-sm delete_confirm" type="submit">
+                    <i class="fa fa-trash"></i>
+                </button>
+            </form>
+        </div>
+    </td>
+    @endif
                         </tr>
 
                         {{-- Modal Approve --}}

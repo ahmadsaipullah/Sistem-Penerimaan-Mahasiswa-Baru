@@ -8,7 +8,13 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Halaman Admin</h1>
+                 <div class="d-flex align-items-center mb-3">
+  <i class="fas fa-user-shield text-success fa-2x me-2 animate__animated animate__fadeInDown"></i>
+  <h1 class="h3 text-gray-800 fw-bold mb-0 animate__animated animate__fadeInRight">
+    Halaman Admin
+  </h1>
+</div>
+
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">

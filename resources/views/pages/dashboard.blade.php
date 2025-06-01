@@ -4,7 +4,13 @@
 @section('content')
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+  <div class="d-flex align-items-center mb-4">
+  <i class="fas fa-tachometer-alt text-dark fa-2x me-2 animate__animated animate__fadeInDown"></i>
+  <h1 class="h3 text-gray-800 fw-bold mb-0 animate__animated animate__fadeInRight">
+    Dashboard
+  </h1>
+</div>
+
 </div>
 
 @if (auth()->user()->level_id == 3)
@@ -71,7 +77,7 @@
     @endif
 
     @else
-  @if (auth()->user()->level_id == 1)
+
     <div class="row">
         <div class="col-md-4 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
@@ -100,7 +106,7 @@
             </div>
         </div>
     </div>
-@endif
+
 
 
 @endif

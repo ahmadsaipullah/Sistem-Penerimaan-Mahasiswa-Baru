@@ -89,7 +89,38 @@ use App\Http\Controllers\userPembayaranController;
 
 
         Route::middleware(['assesor'])->group(function () {
+  // pendaftaran
+            Route::get('/pendaftaran', [pendaftaranController::class, 'index'])->name('pendaftaran.index');
+            Route::patch ('/pendaftaran/{id}', [pendaftaranController::class, 'update'])->name('pendaftaran.update');
+            Route::delete('/pendaftaran/{id}', [pendaftaranController::class, 'destroy'])->name('pendaftaran.destroy');
+            Route::get('/pendaftaran/export/{id?}', [cetakController::class, 'exportPDF'])->name('pendaftaran.export');
 
+             // Halaman upload dokumen
+            Route::get('/upload-dokumen', [uploadDokumenController::class, 'index'])->name('upload_dokumen.index');
+            Route::post('/upload-dokumen', [uploadDokumenController::class, 'store'])->name('upload_dokumen.store');
+            Route::patch('/upload-dokumen/{id}', [uploadDokumenController::class, 'update'])->name('upload_dokumen.update');
+            Route::delete('/upload-dokumen/{id}', [uploadDokumenController::class, 'destroy'])->name('upload_dokumen.destroy');
+
+            Route::post('/upload-dokumen/approve{id}', [uploadDokumenController::class, 'approve'])->name('upload_dokumen.approve');
+            Route::post('/upload-dokumen/rejected{id}', [uploadDokumenController::class, 'rejected'])->name('upload_dokumen.rejected');
+
+            // pembayaran
+            Route::get('/pembayaran', [pembayaranController::class, 'index'])->name('pembayaran.index');
+            Route::post('/pembayaran/store', [pembayaranController::class, 'store'])->name('pembayaran.store');
+            Route::patch('/pembayaran/update/{id}', [pembayaranController::class, 'update'])->name('pembayaran.update');
+            Route::delete('/pembayaran/delete/{id}', [pembayaranController::class, 'destroy'])->name('pembayaran.destroy');
+
+            Route::post('/pembayaran/approve{id}', [pembayaranController::class, 'approve'])->name('pembayaran.approve');
+            Route::post('/pembayaran/rejected{id}', [pembayaranController::class, 'rejected'])->name('pembayaran.rejected');
+
+            // Jadwal
+             Route::get('/jadwal', [jadwalController::class, 'index'])->name('jadwal.index');
+            Route::post('/jadwal/store', [jadwalController::class, 'store'])->name('jadwal.store');
+            Route::patch('/jadwal/update/{id}', [jadwalController::class, 'update'])->name('jadwal.update');
+            Route::delete('/jadwal/delete/{id}', [jadwalController::class, 'destroy'])->name('jadwal.destroy');
+
+            Route::post('/jadwal/approve{id}', [jadwalController::class, 'approve'])->name('jadwal.approve');
+            Route::post('/jadwal/rejected{id}', [jadwalController::class, 'rejected'])->name('jadwal.rejected');
 
         });
 

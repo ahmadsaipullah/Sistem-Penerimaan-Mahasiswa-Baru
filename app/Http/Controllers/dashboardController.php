@@ -52,7 +52,7 @@ public function index()
     $pendingDokumen = null;
     $pendingPembayaran = null;
 
-    if ($user->level_id == 1) {
+    if ($user->level_id == 1 || $user->level_id == 2) {
         $totalPendaftar = \App\Models\Pendaftaran::count();
         $totalUploadDokumen = \App\Models\UploadDokumen::count();
         $totalPembayaran = \App\Models\Pembayaran::count();

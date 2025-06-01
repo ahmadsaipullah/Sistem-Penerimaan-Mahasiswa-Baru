@@ -58,6 +58,31 @@
          @endif
 
          @if (auth()->user()->level_id == 2)
+
+       <li class="nav-item @yield('pendaftaran')">
+                <a class="nav-link" href="{{ route('pendaftaran.index') }}">
+                    <i class="fas fa-fw fa-file-alt"></i>
+                    <span>Data Pendaftar</span></a>
+            </li>
+            <li class="nav-item @yield('upload_dokumen')">
+                <a class="nav-link" href="{{route('upload_dokumen.index')}}">
+                    <i class="fas fa-fw fa-upload"></i>
+                    <span>Data Upload Berkas</span>
+                </a>
+            </li>
+            <li class="nav-item @yield('pembayaran')">
+                <a class="nav-link" href="{{route('pembayaran.index')}}">
+                    <i class="fas fa-fw fa-upload"></i>
+                    <span>Upload Bukti Pembayaran</span>
+                </a>
+            </li>
+            <li class="nav-item @yield('jadwal')">
+                <a class="nav-link" href="{{route('jadwal.index')}}">
+                    <i class="fas fa-fw fa-upload"></i>
+                    <span>Pengajuan jadwal</span>
+                </a>
+            </li>
+
          @endif
 
          @if (auth()->user()->level_id == 3)
@@ -106,8 +131,6 @@
              </a>
          </li>
      @endif
-
-
 
 
      @endif

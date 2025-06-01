@@ -8,7 +8,12 @@
 @include('sweetalert::alert')
 
 <div class="container-fluid">
-    <h1 class="h3 mb-2 text-gray-800">Halaman Upload Dokumen</h1>
+   <div class="d-flex align-items-center mb-3">
+  <i class="fas fa-file-upload text-primary fa-2x me-2 animate__animated animate__fadeInDown"></i>
+  <h1 class="h3 text-gray-800 fw-bold mb-0 animate__animated animate__fadeInRight">
+    Halaman Upload Dokumen
+  </h1>
+</div>
 
     @if($upload_dokumens->isEmpty())
         <div class="card shadow mb-4">
