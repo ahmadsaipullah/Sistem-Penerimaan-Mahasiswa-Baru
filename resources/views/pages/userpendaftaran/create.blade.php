@@ -16,53 +16,43 @@
                         <div class="col-md-6">
                             <h5 class="mb-3">Data Akademik</h5>
 
-                            <div class="form-group">
-                                <label for="asal_sekolah_universitas">Asal Sekolah/Universitas</label>
-                                <input type="text" class="form-control" id="asal_sekolah_universitas" name="asal_sekolah_universitas" required />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="alamat_sekolah_universitas">Alamat Sekolah/Universitas</label>
-                                <input type="text" class="form-control" id="alamat_sekolah_universitas" name="alamat_sekolah_universitas" required />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="nis_nim">NIS/NIM</label>
-                                <input type="text" class="form-control" id="nis_nim" name="nis_nim" required />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="nomor_ijasah">Nomor Ijazah</label>
-                                <input type="text" class="form-control" id="nomor_ijasah" name="nomor_ijasah" required />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="tahun_lulus">Tahun Lulus</label>
-                                <input type="number" class="form-control" id="tahun_lulus" name="tahun_lulus" required />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="program_studi_asal">Program Studi Asal</label>
-                                <input type="text" class="form-control" id="program_studi_asal" name="program_studi_asal" required />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="program_studi_tujuan">Program Studi Tujuan</label>
-                                <input type="text" class="form-control" id="program_studi_tujuan" name="program_studi_tujuan" required />
-                            </div>
+                            @foreach([
+                                'asal_sekolah_universitas' => 'Asal Sekolah/Universitas',
+                                'alamat_sekolah_universitas' => 'Alamat Sekolah/Universitas',
+                                'nis_nim' => 'NIS/NIM',
+                                'nomor_ijasah' => 'Nomor Ijazah',
+                                'tahun_lulus' => 'Tahun Lulus',
+                                'program_studi_asal' => 'Program Studi Asal',
+                                'program_studi_tujuan' => 'Program Studi Tujuan',
+                                'program_kelas' => 'Program Kelas'
+                            ] as $field => $label)
+                                <div class="form-group">
+                                    <label for="{{ $field }}">{{ $label }}</label>
+                                    <input type="{{ $field == 'tahun_lulus' ? 'number' : 'text' }}"
+                                           class="form-control @error($field) is-invalid @enderror"
+                                           id="{{ $field }}"
+                                           name="{{ $field }}"
+                                           value="{{ old($field) }}"
+                                           required />
+                                    @error($field)
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            @endforeach
 
                             <div class="form-group">
                                 <label for="jenjang">Jenjang</label>
-                                <select class="form-control" id="jenjang" name="jenjang" required>
+                                <select class="form-control @error('jenjang') is-invalid @enderror"
+                                        id="jenjang"
+                                        name="jenjang"
+                                        required>
                                     <option value="">-- Pilih Jenjang --</option>
-                                    <option value="S1">S1</option>
-                                    <option value="S2">S2</option>
+                                    <option value="S1" {{ old('jenjang') == 'S1' ? 'selected' : '' }}>S1</option>
+                                    <option value="S2" {{ old('jenjang') == 'S2' ? 'selected' : '' }}>S2</option>
                                 </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="program_kelas">Program Kelas</label>
-                                <input type="text" class="form-control" id="program_kelas" name="program_kelas" required />
+                                @error('jenjang')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
 
@@ -70,41 +60,59 @@
                         <div class="col-md-6">
                             <h5 class="mb-3">Data Pekerjaan</h5>
 
-                            <div class="form-group">
-                                <label for="pekerjaan">Pekerjaan</label>
-                                <input type="text" class="form-control" id="pekerjaan" name="pekerjaan" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="perusahaan">Perusahaan</label>
-                                <input type="text" class="form-control" id="perusahaan" name="perusahaan" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="alamat_perusahaan">Alamat Perusahaan</label>
-                                <input type="text" class="form-control" id="alamat_perusahaan" name="alamat_perusahaan" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="lama_bekerja">Lama Bekerja (tahun)</label>
-                                <input type="number" class="form-control" id="lama_bekerja" name="lama_bekerja" />
-                            </div>
+                            @foreach([
+                                'pekerjaan' => 'Pekerjaan',
+                                'perusahaan' => 'Perusahaan',
+                                'alamat_perusahaan' => 'Alamat Perusahaan',
+                                'lama_bekerja' => 'Lama Bekerja (tahun)'
+                            ] as $field => $label)
+                                <div class="form-group">
+                                    <label for="{{ $field }}">{{ $label }}</label>
+                                    <input type="{{ $field == 'lama_bekerja' ? 'number' : 'text' }}"
+                                           class="form-control @error($field) is-invalid @enderror"
+                                           id="{{ $field }}"
+                                           name="{{ $field }}"
+                                           value="{{ old($field) }}" />
+                                    @error($field)
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            @endforeach
 
                             <div class="form-group">
                                 <label for="deskripsi_pekerjaan">Deskripsi Pekerjaan</label>
-                                <textarea class="form-control" id="deskripsi_pekerjaan" name="deskripsi_pekerjaan" rows="3"></textarea>
+                                <textarea class="form-control @error('deskripsi_pekerjaan') is-invalid @enderror"
+                                          id="deskripsi_pekerjaan"
+                                          name="deskripsi_pekerjaan"
+                                          rows="3">{{ old('deskripsi_pekerjaan') }}</textarea>
+                                @error('deskripsi_pekerjaan')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
 
                             <h5 class="mb-3 mt-4">Upload Sertifikat</h5>
 
                             <div class="form-group">
                                 <label for="sertifikat">Upload Sertifikat (PDF/JPG/PNG)</label>
-                                <input type="file" class="form-control" id="sertifikat" name="sertifikat" accept=".pdf,.jpg,.jpeg,.png" />
+                                <input type="file"
+                                       class="form-control @error('sertifikat') is-invalid @enderror"
+                                       id="sertifikat"
+                                       name="sertifikat"
+                                       accept=".pdf,.jpg,.jpeg,.png" />
+                                @error('sertifikat')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
 
                             <div class="form-group">
                                 <label for="deskripsi">Deskripsi Tambahan</label>
-                                <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3"></textarea>
+                                <textarea class="form-control @error('deskripsi') is-invalid @enderror"
+                                          id="deskripsi"
+                                          name="deskripsi"
+                                          rows="3">{{ old('deskripsi') }}</textarea>
+                                @error('deskripsi')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                     </div>

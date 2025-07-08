@@ -10,83 +10,52 @@
                 </button>
             </div>
 
-            <form action="{{ route('userdokumen.update' ,$upload_dokumen->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('userdokumen.update', $upload_dokumen->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
                 <div class="modal-body">
                     <div class="row">
 
-                        <!-- KTP -->
-                        <div class="col-md-6 mb-3">
-                            <label>KTP</label><br>
-                            @if ($upload_dokumen->ktp)
-                                <img src="{{ asset('storage/' . $upload_dokumen->ktp) }}" width="200" class="mb-2">
-                            @endif
-                            <input type="file" name="ktp" class="form-control">
-                        </div>
+                        @php
+                            $dokumenFields = [
+                                'ktp' => 'KTP',
+                                'kartu_keluarga' => 'Kartu Keluarga',
+                                'akte_kelahiran' => 'Akte Kelahiran',
+                                'ijazah' => 'Ijazah',
+                                'paklaring' => 'Paklaring',
+                                'curiculum_vitae' => 'Curriculum Vitae',
+                                'form_aplikasi_rpl' => 'Form Aplikasi RPL',
+                                'bukti_pendaftaran' => 'Bukti Pendaftaran',
+                            ];
+                        @endphp
 
-                        <!-- Kartu Keluarga -->
-                        <div class="col-md-6 mb-3">
-                            <label>Kartu Keluarga</label><br>
-                            @if ($upload_dokumen->kartu_keluarga)
-                                <a href="{{ asset('storage/' . $upload_dokumen->kartu_keluarga) }}" target="_blank">Lihat PDF</a>
-                            @endif
-                            <input type="file" name="kartu_keluarga" class="form-control mt-2">
-                        </div>
+                        @foreach ($dokumenFields as $field => $label)
+                            <div class="col-md-6 mb-3">
+                                <label>{{ $label }}</label><br>
 
-                        <!-- Akte Kelahiran -->
-                        <div class="col-md-6 mb-3">
-                            <label>Akte Kelahiran</label><br>
-                            @if ($upload_dokumen->akte_kelahiran)
-                                <a href="{{ asset('storage/' . $upload_dokumen->akte_kelahiran) }}" target="_blank">Lihat PDF</a>
-                            @endif
-                            <input type="file" name="akte_kelahiran" class="form-control mt-2">
-                        </div>
+                                {{-- Tampilkan Preview --}}
+                                @php $file = $upload_dokumen->$field; @endphp
+                                @if ($file)
+                                    @php $ext = pathinfo($file, PATHINFO_EXTENSION); @endphp
+                                    @if (in_array($ext, ['jpg', 'jpeg', 'png']))
+                                        <img src="{{ asset('storage/' . $file) }}" width="200" class="mb-2">
+                                    @elseif ($ext === 'pdf')
+                                        <a href="{{ asset('storage/' . $file) }}" target="_blank" class="btn btn-sm btn-success mb-2">Lihat PDF</a>
+                                    @else
+                                        <p class="text-muted">Format tidak didukung</p>
+                                    @endif
+                                @endif
 
-                        <!-- Ijazah -->
-                        <div class="col-md-6 mb-3">
-                            <label>Ijazah</label><br>
-                            @if ($upload_dokumen->ijazah)
-                                <a href="{{ asset('storage/' . $upload_dokumen->ijazah) }}" target="_blank">Lihat PDF</a>
-                            @endif
-                            <input type="file" name="ijazah" class="form-control mt-2">
-                        </div>
-
-                        <!-- Paklaring -->
-                        <div class="col-md-6 mb-3">
-                            <label>Paklaring</label><br>
-                            @if ($upload_dokumen->paklaring)
-                                <a href="{{ asset('storage/' . $upload_dokumen->paklaring) }}" target="_blank">Lihat PDF</a>
-                            @endif
-                            <input type="file" name="paklaring" class="form-control mt-2">
-                        </div>
-
-                        <!-- Curriculum Vitae -->
-                        <div class="col-md-6 mb-3">
-                            <label>Curriculum Vitae</label><br>
-                            @if ($upload_dokumen->curiculum_vitae)
-                                <a href="{{ asset('storage/' . $upload_dokumen->curiculum_vitae) }}" target="_blank">Lihat PDF</a>
-                            @endif
-                            <input type="file" name="curiculum_vitae" class="form-control mt-2">
-                        </div>
-
-                        <!-- Form Aplikasi RPL -->
-                        <div class="col-md-6 mb-3">
-                            <label>Form Aplikasi RPL</label><br>
-                            @if ($upload_dokumen->form_aplikasi_rpl)
-                                <a href="{{ asset('storage/' . $upload_dokumen->form_aplikasi_rpl) }}" target="_blank">Lihat PDF</a>
-                            @endif
-                            <input type="file" name="form_aplikasi_rpl" class="form-control mt-2">
-                        </div>
-
-                        <!-- Bukti Pendaftaran -->
-                        <div class="col-md-6 mb-3">
-                            <label>Bukti Pendaftaran</label><br>
-                            @if ($upload_dokumen->bukti_pendaftaran)
-                                <img src="{{ asset('storage/' . $upload_dokumen->bukti_pendaftaran) }}" width="200" class="mb-2">
-                            @endif
-                            <input type="file" name="bukti_pendaftaran" class="form-control">
-                        </div>
+                                {{-- Input File --}}
+                                <input type="file"
+                                    name="{{ $field }}"
+                                    class="form-control mt-2 @error($field) is-invalid @enderror"
+                                    accept="{{ in_array($field, ['ktp', 'bukti_pendaftaran']) ? '.jpg,.jpeg,.png' : '.pdf' }}">
+                                @error($field)
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        @endforeach
 
                     </div>
                 </div>
@@ -96,7 +65,6 @@
                     <button type="submit" class="btn btn-warning">Simpan Perubahan</button>
                 </div>
             </form>
-
         </div>
     </div>
 </div>

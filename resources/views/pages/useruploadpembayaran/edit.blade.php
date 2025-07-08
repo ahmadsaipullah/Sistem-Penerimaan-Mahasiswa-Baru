@@ -15,27 +15,44 @@
                 @method('PATCH')
                 <div class="modal-body">
                     <div class="row">
-                        <!-- Kolom Kiri -->
                         <div class="col-md-12">
+
+                            {{-- Bukti Pembayaran --}}
                             <div class="form-group">
                                 <label for="bukti_pembayaran">Upload Bukti Pembayaran (JPG/PNG/JPEG)</label>
-                                <input type="file" class="form-control" name="bukti_pembayaran" accept=".jpg,.jpeg,.png">
+                                <input type="file"
+                                       class="form-control @error('bukti_pembayaran') is-invalid @enderror"
+                                       name="bukti_pembayaran" accept=".jpg,.jpeg,.png">
+                                @error('bukti_pembayaran')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+
                                 @if ($pembayaran->bukti_pembayaran)
-                                    <small class="form-text text-muted mt-2">File sebelumnya:
+                                    <small class="form-text text-muted mt-2">
+                                        File sebelumnya:
                                         <a href="{{ asset('storage/' . $pembayaran->bukti_pembayaran) }}" target="_blank">Lihat Bukti</a>
                                     </small>
                                 @endif
                             </div>
 
+                            {{-- Nominal --}}
                             <div class="form-group">
                                 <label for="nominal">Nominal</label>
-                                <input type="number" class="form-control" name="nominal" value="{{ $pembayaran->nominal }}" required>
+                                <input type="number"
+                                       class="form-control @error('nominal') is-invalid @enderror"
+                                       name="nominal"
+                                       value="{{ old('nominal', $pembayaran->nominal) }}" required>
+                                @error('nominal')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
 
+                            {{-- Keterangan --}}
                             <div class="form-group">
                                 <label for="keterangan">Keterangan</label>
-                                <input type="text" name="keterangan" class="form-control" readonly value="{{$pembayaran->keterangan}}">
+                                <input type="text" name="keterangan" class="form-control" readonly value="{{ $pembayaran->keterangan }}">
                             </div>
+
                         </div>
                     </div>
                 </div>

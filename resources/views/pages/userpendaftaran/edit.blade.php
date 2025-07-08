@@ -22,61 +22,39 @@
                         <div class="col-md-6">
                             <h5 class="text-primary fw-bold mb-3">Data Akademik</h5>
 
-                            <div class="form-group">
-                                <label for="asal_sekolah_universitas">Asal Sekolah/Universitas</label>
-                                <input type="text" class="form-control" name="asal_sekolah_universitas"
-                                    value="{{ old('asal_sekolah_universitas', $pendaftaran->asal_sekolah_universitas) }}" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="alamat_sekolah_universitas">Alamat Sekolah/Universitas</label>
-                                <input type="text" class="form-control" name="alamat_sekolah_universitas"
-                                    value="{{ old('alamat_sekolah_universitas', $pendaftaran->alamat_sekolah_universitas) }}" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="nis_nim">NIS/NIM</label>
-                                <input type="text" class="form-control" name="nis_nim"
-                                    value="{{ old('nis_nim', $pendaftaran->nis_nim) }}" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="nomor_ijasah">Nomor Ijazah</label>
-                                <input type="text" class="form-control" name="nomor_ijasah"
-                                    value="{{ old('nomor_ijasah', $pendaftaran->nomor_ijasah) }}" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="tahun_lulus">Tahun Lulus</label>
-                                <input type="number" class="form-control" name="tahun_lulus"
-                                    value="{{ old('tahun_lulus', $pendaftaran->tahun_lulus) }}" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="program_studi_asal">Program Studi Asal</label>
-                                <input type="text" class="form-control" name="program_studi_asal"
-                                    value="{{ old('program_studi_asal', $pendaftaran->program_studi_asal) }}" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="program_studi_tujuan">Program Studi Tujuan</label>
-                                <input type="text" class="form-control" name="program_studi_tujuan"
-                                    value="{{ old('program_studi_tujuan', $pendaftaran->program_studi_tujuan) }}" required>
-                            </div>
+                            @foreach([
+                                'asal_sekolah_universitas' => 'Asal Sekolah/Universitas',
+                                'alamat_sekolah_universitas' => 'Alamat Sekolah/Universitas',
+                                'nis_nim' => 'NIS/NIM',
+                                'nomor_ijasah' => 'Nomor Ijazah',
+                                'tahun_lulus' => 'Tahun Lulus',
+                                'program_studi_asal' => 'Program Studi Asal',
+                                'program_studi_tujuan' => 'Program Studi Tujuan',
+                                'program_kelas' => 'Program Kelas',
+                            ] as $field => $label)
+                                <div class="form-group">
+                                    <label for="{{ $field }}">{{ $label }}</label>
+                                    <input type="{{ $field == 'tahun_lulus' ? 'number' : 'text' }}"
+                                        class="form-control @error($field) is-invalid @enderror"
+                                        name="{{ $field }}"
+                                        value="{{ old($field, $pendaftaran->$field) }}"
+                                        required>
+                                    @error($field)
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            @endforeach
 
                             <div class="form-group">
                                 <label for="jenjang">Jenjang</label>
-                                <select name="jenjang" id="jenjang" class="form-control" required>
+                                <select name="jenjang" id="jenjang" class="form-control @error('jenjang') is-invalid @enderror" required>
                                     <option value="">-- Pilih Jenjang --</option>
-                                    <option value="S1" {{ old('jenjang', $pendaftaran->jenjang ?? '') == 'S1' ? 'selected' : '' }}>S1</option>
-                                    <option value="S2" {{ old('jenjang', $pendaftaran->jenjang ?? '') == 'S2' ? 'selected' : '' }}>S2</option>
+                                    <option value="S1" {{ old('jenjang', $pendaftaran->jenjang) == 'S1' ? 'selected' : '' }}>S1</option>
+                                    <option value="S2" {{ old('jenjang', $pendaftaran->jenjang) == 'S2' ? 'selected' : '' }}>S2</option>
                                 </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="program_kelas">Program Kelas</label>
-                                <input type="text" class="form-control" name="program_kelas"
-                                    value="{{ old('program_kelas', $pendaftaran->program_kelas) }}" required>
+                                @error('jenjang')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
 
@@ -84,33 +62,31 @@
                         <div class="col-md-6">
                             <h5 class="text-primary fw-bold mb-3">Data Pekerjaan</h5>
 
-                            <div class="form-group">
-                                <label for="pekerjaan">Pekerjaan</label>
-                                <input type="text" class="form-control" name="pekerjaan"
-                                    value="{{ old('pekerjaan', $pendaftaran->pekerjaan) }}">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="perusahaan">Perusahaan</label>
-                                <input type="text" class="form-control" name="perusahaan"
-                                    value="{{ old('perusahaan', $pendaftaran->perusahaan) }}">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="alamat_perusahaan">Alamat Perusahaan</label>
-                                <input type="text" class="form-control" name="alamat_perusahaan"
-                                    value="{{ old('alamat_perusahaan', $pendaftaran->alamat_perusahaan) }}">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="lama_bekerja">Lama Bekerja (tahun)</label>
-                                <input type="number" class="form-control" name="lama_bekerja"
-                                    value="{{ old('lama_bekerja', $pendaftaran->lama_bekerja) }}">
-                            </div>
+                            @foreach([
+                                'pekerjaan' => 'Pekerjaan',
+                                'perusahaan' => 'Perusahaan',
+                                'alamat_perusahaan' => 'Alamat Perusahaan',
+                                'lama_bekerja' => 'Lama Bekerja (tahun)',
+                            ] as $field => $label)
+                                <div class="form-group">
+                                    <label for="{{ $field }}">{{ $label }}</label>
+                                    <input type="{{ $field == 'lama_bekerja' ? 'number' : 'text' }}"
+                                        class="form-control @error($field) is-invalid @enderror"
+                                        name="{{ $field }}"
+                                        value="{{ old($field, $pendaftaran->$field) }}">
+                                    @error($field)
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            @endforeach
 
                             <div class="form-group">
                                 <label for="deskripsi_pekerjaan">Deskripsi Pekerjaan</label>
-                                <textarea class="form-control" name="deskripsi_pekerjaan">{{ old('deskripsi_pekerjaan', $pendaftaran->deskripsi_pekerjaan) }}</textarea>
+                                <textarea class="form-control @error('deskripsi_pekerjaan') is-invalid @enderror"
+                                    name="deskripsi_pekerjaan">{{ old('deskripsi_pekerjaan', $pendaftaran->deskripsi_pekerjaan) }}</textarea>
+                                @error('deskripsi_pekerjaan')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
 
                             <h5 class="text-primary fw-bold mt-4">Upload Sertifikat</h5>
@@ -132,12 +108,19 @@
                                 @else
                                     <p class="text-muted">Tidak ada sertifikat.</p>
                                 @endif
-                                <input type="file" class="form-control mt-2" name="sertifikat" accept=".pdf,.jpg,.jpeg,.png">
+                                <input type="file" class="form-control mt-2 @error('sertifikat') is-invalid @enderror" name="sertifikat" accept=".pdf,.jpg,.jpeg,.png">
+                                @error('sertifikat')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
 
                             <div class="form-group">
-                                <label for="deskripsi_pekerjaan">Deskripsi Sertifikat</label>
-                                <textarea class="form-control" name="deskripsi">{{ old('deskripsi', $pendaftaran->deskripsi) }}</textarea>
+                                <label for="deskripsi">Deskripsi Sertifikat</label>
+                                <textarea class="form-control @error('deskripsi') is-invalid @enderror"
+                                    name="deskripsi">{{ old('deskripsi', $pendaftaran->deskripsi) }}</textarea>
+                                @error('deskripsi')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                     </div>

@@ -13,11 +13,16 @@
                 @csrf
                 <div class="modal-body">
                     <div class="row">
-                        <!-- Kolom Kiri -->
+                        <!-- Kolom -->
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="jadwal_wawancara">Jadwal Wawancara</label>
-                                <input type="text" class="form-control" id="jadwal_wawancara" name="jadwal_wawancara" required />
+                                <input type="text" class="form-control @error('jadwal_wawancara') is-invalid @enderror"
+                                    id="jadwal_wawancara" name="jadwal_wawancara" value="{{ old('jadwal_wawancara') }}" required />
+
+                                @error('jadwal_wawancara')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                     </div>
