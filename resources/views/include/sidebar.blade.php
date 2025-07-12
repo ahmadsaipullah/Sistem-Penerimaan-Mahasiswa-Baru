@@ -82,6 +82,12 @@
                     <span>Pengajuan jadwal</span>
                 </a>
             </li>
+            <li class="nav-item @yield('assesmen')">
+                <a class="nav-link" href="{{route('assesmen.index')}}">
+                    <i class="fas fa-fw fa-upload"></i>
+                    <span>Assesmen</span>
+                </a>
+            </li>
 
          @endif
 
@@ -132,6 +138,14 @@
          </li>
      @endif
 
+     @if($pembayaran && $pembayaran->status === 'Approve')
+            <li class="nav-item @yield('assesmen')">
+                <a class="nav-link" href="{{route('mahasiswa.assesmen.index')}}">
+                    <i class="fas fa-fw fa-upload"></i>
+                    <span>Assesmen</span>
+                </a>
+            </li>
+     @endif
 
      @endif
          <!-- Divider -->
